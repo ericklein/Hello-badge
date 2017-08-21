@@ -1,15 +1,8 @@
 /*
-
-Project Name : "Hello My Name is" electronic badge
+Project Name : Electronic Badge
 Developer : Eric Klein Jr. (temp2@ericklein.com)
-Description : Name badge that rotates pre-set hello messages based on button presses
-Last Revision Date : 3/8/14
-
-Revision History
-3/8/14 - first version restoring functionality in the first prototype
- 
-modifies public domain code to drive the LCD from  http://www.arduino.cc/en/Tutorial/LiquidCrystal
-
+Description : Name badge that rotates pre-set hello messages based on button presses.
+See README.md for target information, revision history, feature requests, etc.
 */
 
 // include the LCD library code, which is a base Arduino library
@@ -39,8 +32,8 @@ int lastButtonState = LOW;
 long lastDebounceTime = 0;  // the last time the output pin was toggled
 long debounceDelay = 50;    // the debounce time; increase if the output flickers
 
-void setup() {
-  
+void setup()
+{ 
   // initiatialize pins
   pinMode(BUTTON, INPUT);
   pinMode(LED, OUTPUT);
@@ -58,7 +51,8 @@ void setup() {
   digitalWrite(LED, LEDstate);
 }
 
-void loop() {
+void loop()
+{
   // set the cursor to column 0, line 1. line 1 is the second row, since counting begins with 0
   lcd.setCursor(0, 1);
 
@@ -70,30 +64,36 @@ void loop() {
   // long enough since the last press to ignore any noise:  
 
   // If the switch changed, due to noise or pressing:
-  if (reading != lastButtonState) {
+  if (reading != lastButtonState) 
+  {
     // reset the debouncing timer
     lastDebounceTime = millis();
   } 
   
-  if ((millis() - lastDebounceTime) > debounceDelay) {
+  if ((millis() - lastDebounceTime) > debounceDelay)
+  {
     // whatever the reading is at, it's been there for longer
     // than the debounce delay, so take it as the actual current state:
 
     // if the button state has changed:
-    if (reading != buttonState) {
+    if (reading != buttonState)
+    {
       buttonState = reading;
 
       // only toggle the LED if the new button state is HIGH
-      if (buttonState == HIGH) {
+      if (buttonState == HIGH)
+      {
         LEDstate = !LEDstate;
-        if (descriptionCycle < descriptionMax) {
-        descriptionCycle++;
-      }
-      else {
-      descriptionCycle = 0;
+        if (descriptionCycle < descriptionMax) 
+        {
+          descriptionCycle++;
+        }
+      else
+      {
+        descriptionCycle = 0;
       }
     }
-  }
+   }
   }
   
     // set the LED:
